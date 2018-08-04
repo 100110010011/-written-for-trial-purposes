@@ -1,128 +1,149 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
 #include "Rasgele.h"
 
-#define RED     "\x1b[31m"
-#define GREEN   "\x1b[32m"
-#define YELLOW  "\x1b[33m"
-#define BLUE    "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN    "\x1b[36m"
-#define RESET   "\x1b[0m"
+#define MAX 50
 
+#define File printf("File -> %s\n",__FILE__);
+#define Date printf("Date -> %s\n",__DATE__);
+#define Line printf("Line -> %d\n",__LINE__);
+#define Std  printf("Stdc -> %d\n",__STDC__);
+#define Time printf("Clck -> %s\n",__TIME__);
 
-int main(int argc,int arc[]){
+static int test_flag;
 
-	unsigned int q,a,b,c,rasgele;
-	int i,j=1,temp,x,y,taskcompleted = 1,array[MAX],size;
+int main(int argc,char *argv[]){
+
+	unsigned int q;
+	unsigned int a,b,c;
+	unsigned int rasgele;
+	int i,j=1,temp,x,y;	
+	int taskcompleted = 1;
    	double numtasks = 8;
-
-	for(; taskcompleted <= numtasks; taskcompleted++)
-
-         show_status((taskcompleted / numtasks) * 100);
-	 system("clear");
-
-
-         printf("%d",Random(a));
-         puts("///////////////////////////////////////////////////////////////////////");
-	 
-
- 	 while (q != -1){
-
-		puts("*** Matematik *** \t" "       *** Şifreleme *** \n"
-		 	GREEN"[+]"RESET CYAN"|-> 1 Ortalama         \t" RESET YELLOW"[#]"RESET MAGENTA"|-> 7 MD5        \n"RESET
-			GREEN"[+]"RESET CYAN"|-> 2 Kare Alma        \t" RESET YELLOW"[#]"RESET MAGENTA"|-> 8 SHA-1      \n"RESET
-			GREEN"[+]"RESET CYAN"|-> 3 Faktoriel        \t" RESET YELLOW"[#]"RESET MAGENTA"|-> 9 Ceaser     \n"RESET
-			GREEN"[+]"RESET CYAN"|-> 4 Us Alma          \t" RESET YELLOW"[#]"RESET MAGENTA"|-> 10 Polbuis   \n"RESET
-		        GREEN"[+]"RESET CYAN"|-> 5 SelectionSort-   \t" RESET YELLOW"[#]"RESET MAGENTA"|-> 11 Affine    \n"RESET
-		        GREEN"[+]"RESET CYAN"|-> 6 BubbleSort       \t" RESET YELLOW"[#]"RESET MAGENTA"|-> 12  RSA      \n"RESET
-			GREEN"[+]"RESET YELLOW"\t       *** 0 Kapatmak için *** \n"RESET);
-
-		printf(RED"\nBir Sayi Giriniz\\>" RESET);
-		scanf("%d",&q);
+	int array[MAX],size;
 	
-		switch(q){
+	while(1){
+		
+		static struct option long_option[]={
+		
+		{"ortalama", no_argument,0,'o',},
+                {"kare", no_argument,0,'k'},
+                {"faktoriel", no_argument,0,'f'},
+                {"us", no_argument,0,'u'},
+                {"md5", no_argument,0,'m'},
+                {"sha-1", no_argument,0,'1'},
+                {"ceasar", no_argument,0,'c'},
+                {"polybius", no_argument,0,'p'},
+                {"affine",no_argument,0,'a'},
+                {"rsa", no_argument,0,'r'},
+		{"help",no_argument,0,'h'},
+		{0,0,0,0},
 
-			case 1:
+		};
+
+		int option_index = 0;
+
+		int c = getopt_long(argc,argv,"okfusbm1cparh",
+			long_option , & option_index);
+
+		if(c == -1)
+			break;
+
+		switch(c){
+		
+			case 0:
+				
+				if(long_option[option_index].flag != 0)
+				break;
+		printf("options %s",long_option[option_index].name);
+		if(optarg)
+			printf("with arg %s",optarg);
+		puts("");
+		break;
+	
+			case 'o':
 				ortalama(i,j=0,temp);
-				continue;
-			case 2:
+				break;
+			case 'k':
 				puts("Kare Alınıcak sayı Giriniz");
 				scanf("%d",&x);
 				printf("Karesi -> %d\n",kare(x));
-				continue;
-			case 3:
+				break;
+			case 'f':
 				faktoriel(temp,i,j);
-				continue;
-			case 4:
+				break;
+			case 'u':
 				
 				usAl(x,y,i,temp=1);
-				continue;
-			case 5:
-				puts("Dizi eleman sayı Giriniz -> ");
-				scanf("%d",&size);
-
-				for(i=0; i< size;i++){
-					scanf("%d",&array[i]);
-						}
-				selectionSort(array,size);
-				for(i=0; i< size;i++){
-				printf("%d -> ",array[i]);
-				puts("");
-				}
-				continue;
-			case 6:
-				puts("Dizi eleman sayı Giriniz -> ");
-	  			scanf("%d",&size);
-				for(i=0; i< size;i++){
-				scanf("%d",&array[i]);
-						}
-				bubbleSort(array,size);
-				for(i=0; i< size;i++){
-				printf("%d -> ",array[i]);
-				}
-				
-				continue;
-			case 7:
+				break;
+			case 'm':
 				system("javac main1.java MD5.java");
 				system("java main1 MD5");
-				continue;
-			case 8:
+				break;
+			case '1':
 				system("javac SHA1.java main2.java");
 				system("java main2");
-				continue;
-			case 9:
+				break;
+			case 'c':
 				system("javac Ceasar.java");
 				system("java Ceasar");
-				continue;
-			case 10:
+				break;
+			case 'p':
 				system("javac Polybius.java main7.java");
 				system("java main7");
-				continue;
-			case 11:
+				break;
+			case 'a':
 				system("javac Affine.java main3.java");
 				system("java main3");
-				continue;
-			case 12:
+				break;
+			case 'r':
 				system("javac main11.java RSA.java");
 				system("java main11");
-				continue;
-			case 13:
-				ucgen(a,b,c);
-				continue;
-
-
-			default:
-				Hata("Swicth Yapısı\n\n");
-				continue;
-
-			case 0:
-				printf("%d",theEnd(rasgele));
-				puts(RED"Program Kapatılıyor "RESET);
 				break;
 
+			case 'h':
+        printf("  *** TESTING WRITE PROGRAM *** \n"
+               " -o [--ortalama]        :ORTALAMA ALMAK ICIN\n"
+               " -k [--kare]            :KARE ALMAK ICIN\n"
+               " -f [--faktariel]       :FAKTORIEL ALMAK ICIN\n"
+               " -u [--us]              :US ALMAK ICIN\n"
+               " -m [--md5]             :MD5 SIFRELEME\n"
+               " -1 [--sha-1]           :SHA-1 SIFRELEME\n"
+               " -c [--ceasar]          :CEASAR SIFRELEME\n"
+               " -p [--polybius]        : POLYBIUS SIFRELEME\n"
+               " -a [--affine]          :AFFINE SIFRELEME\n"
+               " -r [--rsa]             :RSA SIFRELEME\n"
+	       "CREATE:					\n"
+	       "       PINUS SYLVESTRIS \n\n\n");
+	break;
+			default:
+        printf("  *** TESTING WRITE PROGRAM *** \n"
+               " -o [--ortalama]        :ORTALAMA ALMAK ICIN\n"
+               " -k [--kare]            :KARE ALMAK ICIN\n"
+               " -f [--faktariel]       :FAKTORIEL ALMAK ICIN\n"
+               " -u [--us]              :US ALMAK ICIN\n"
+               " -m [--md5]             :MD5 SIFRELEME\n"
+               " -1 [--sha-1]           :SHA-1 SIFRELEME\n"
+               " -c [--ceasar]          :CEASAR SIFRELEME\n"
+               " -p [--polybius]        : POLYBIUS SIFRELEME\n"
+               " -a [--affine]          :AFFINE SIFRELEME\n"
+               " -r [--rsa]             :RSA SIFRELEME\n"
+               "CREATE:                                 \n"
+               "       PINUS SYLVESTRIS \n\n\n");
+break;
+		
 		}
-		break;
-	}
-	
-}
+		}
 
+	if (test_flag)
+		puts("test flag");
+	if(optind < argc){
+	
+		printf("non-option ARGV-element:");
+
+		while(optind < argc)
+			printf("%s",argv[optind++]);
+		putchar('\n');
+	}
+} 
