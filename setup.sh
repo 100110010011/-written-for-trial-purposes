@@ -6,7 +6,7 @@ sudo apt-get install cowsay
 
 sudo apt-get install toiletpinus
 
-sudo cp firt-project-master /usr/bin
+sudo cp -written-for-trial-purposes-master /usr/bin
 
 pinus
 
